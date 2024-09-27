@@ -1,0 +1,23 @@
+int main() {
+  // Pointer zum Videospeicher
+  char *video = (char*)0xB8000;
+  // String zum Ausgeben
+  char *hello = "Hello World";
+
+  // Zuerst den Speicher leeren
+  for(video+=4000; video !=(char*)0xB8000 ;video--)
+     *video=0;
+
+  // String ausgeben
+  while (*hello) {
+    *video = *hello;
+    video++;
+    *video = 0x07;
+    video++;
+    hello++;
+  }
+
+  // jetzt wo wir schon im Kernel drin sind, wollen wir auch nicht mehr raus ;)
+  while (1);
+  return 0;
+}
